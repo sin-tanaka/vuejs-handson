@@ -75,16 +75,8 @@ var app2 = new Vue({
 
 また、Vuejsの提供する `v-` の接頭辞のついたプロパティを **ディレクティブ** といいます。
 
-### リアクティブを体感する その3
-
-htmlの `<input>` タグのvalue属性をリアクティブなふるまいにしてみましょう。
-
-```html
-<div id="app-2">
-  <input v-bind:title="message">
-</div>
-```
-
+ディレクティブの中身は常にJavaScriptとして評価されます。  
+例えばディレクティブに文字列を渡したいときは `v-bind:title="'anyString'"` のようにする必要があります。
 
 ::: tip
 
@@ -106,9 +98,6 @@ Vuejsにおいて、`View = Vueインスタンスを紐付けるDOM` 、 `ViewMo
 :::
 
 ## イベントを購読する
-
-
---- 
 
 VuejsでDOMのイベントを購読するには `v-on` ディレクティブを使います。
 
@@ -157,7 +146,177 @@ e.g. ボタンをクリックすることでダイアログが開く等
 一般的に **イベントを購読する** 、 **イベントが発火する** のように使われます。
 :::
 
+### リアクティブを体感する その3
+
+htmlの `<input>` 要素のvalue属性をリアクティブなふるまいにして、さらにinputイベントを購読しましょう。
+
+```html
+<div id="app-3">
+  <input
+    type="text"
+    v-bind:value="message"
+    v-on:input="updateMessage"
+    >
+  <p>あなたの入力したメッセージは {{ message }} です</p>
+</div>
+```
+
+```js
+var app3 = new Vue({
+  el: '#app-3',
+  data: {
+    message: ''
+  },
+  methods: {
+    updateMessage: function(e) {
+      this.message = e.target.value;
+    },
+  }
+})
+```
+
+`<input>` が更新されるたびに `<p>` 要素内のmessageが変化するのが分かると思います。
+
+いままで、 Vueインスタンス→画面 の一方向にリアクティブでしたが、Vueインスタンス⇔画面 の両方でリアクティブになっていることが分かるかと思います。
+
+これを **双方向バインディング** といいいます。
+
+::: tip
+`v-on` ディレクティブで発火する関数には **暗黙的に** event変数が渡されることを覚えておきましょう。  
+これはJavaScriptの慣例なので、JavaScriptでイベントハンドリングをしたことがない人は直感的に理解しづらいかもしれません。
+
+また、イベントによって発火する関数は **コールバック関数** と呼ばれます。
+
+:::
+
+::: tip
+設定できるDOMイベント一覧はWeb標準で定められています。
+
+[イベントリファレンス](https://developer.mozilla.org/ja/docs/Web/Events#Standard_events)
+
+一般的によく使われるイベントは以下です。
+
+- input・・・要素のvalueが変化したとき
+- change・・・要素の値が変化したとき
+- keyup・・・キーボード入力されたときに、キーを離したとき
+- focus ・・・要素にフォーカスがあたったとき
+- blur・・・要素のフォーカスが外れたとき
+- scroll・・・要素がスクロールされたとき
+
+:::
+
+## v-modelによる双方向バインディング
+
+Vuejsでは `v-model` ディレクティブを使うことで、より簡単に双方向バインディングを実現できます。
+
+```html
+<div id="app-4">
+  <input
+    type="text"
+    v-model='message'
+    >
+  <p>あなたの入力したメッセージは {{ message }} です</p>
+</div>
+```
+
+```js
+var app4 = new Vue({
+  el: '#app-4',
+  data: {
+    message: ''
+  },
+})
+```
+
+### 演習
+
+チェックボックスの値を双方向バインディングしてみましょう。単体のチェックボックスの戻り値はboolean値です。
+
+```html
+<div id="app-5">
+  <input type="checkbox" id="checkbox">
+  <span>選択されている値は 〜〜 です</span>
+</div>
+```
+
+```js
+var app5 = new Vue({
+  el: '#app-5',
+  /** write your code
+
+  **/
+})
+```
+
 ## 条件分岐
+
+`v-if / v-show` ディレクティブを使うと簡単に表示制御ができます。
+
+```html
+<div id="app-5">
+  <h1 v-if="isVisible">Visible</h1>
+  <h1 v-else>NotVisible</h1>
+</div>
+```
+
+```html
+<div id="app-5">
+  <h1 v-show="isVisible">Visible</h1>
+  <h1 v-show="!isVisible">NotVisible</h1>
+</div>
+```
+
+```js
+var app5 = new Vue({
+  el: '#app-5',
+  data: {
+    isVisible: true,
+  },
+})
+```
+
+コンソール上から `isVisible` の値を変えると、描画されるhtmlが変わることが確認できます。
+
+::: tip
+v-if / v-showで実現できることは同じように見えますが、若干違いがあります。
+
+v-showは `display` CSSプロパティを visible / hidden を切り替えるだけで、DOMは常に描画されています。
+
+一方、v-ifは条件がtrueになるまで描画されず、また条件がfalseになった時点でDOMが破棄されます。
+
+[条件付きレンダリング — Vue\.js](https://jp.vuejs.org/v2/guide/conditional.html#v-if-vs-v-show)
+:::
 
 ## ループ
 
+Vueインスタンスに宣言した配列を描画するとき、 `v-for` ディレクティブが有効です。
+
+`v-for` ディレクティブは `item in items` の構文でループを指定する必要があり、他のディレクティブに比べやや特殊な構文になります。
+
+```html
+<div id="app-6">
+  <ul>
+    <li v-for="member in members">
+      {{ member.name }}
+    </li>
+  </ul>
+</div>
+```
+
+```js
+var app6 = new Vue({
+  el: '#app-6',
+  data: {
+    members: [
+      {name: 'ジョナサン・ジョースター'},
+      {name: 'ジョセフ・ジョースター'},
+      {name: '空条承太郎'},
+      {name: '東方仗助'},
+      {name: 'ジョルノ・ジョバァーナ'},
+      {name: '空条徐倫'},
+    ]
+  },
+})
+```
+
+以上がVuejsの基本的な構文になります。
