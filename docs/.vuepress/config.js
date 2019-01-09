@@ -1,4 +1,5 @@
 module.exports = {
+  base: '/vuejs-handson/',
   title: 'JSL Vuejs Hands-on',
   description: 'JSLで開催されたVuejsのハンズオン資料ページです',
   locales: {

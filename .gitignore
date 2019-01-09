@@ -67,6 +67,9 @@ typings/
 # nuxt.js build output
 .nuxt
 
+# vuepress build output
+/docs/.vuepress/dist/
+
 # Serverless directories
 .serverless/
 
