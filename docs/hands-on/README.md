@@ -248,6 +248,69 @@ var app5 = new Vue({
 })
 ```
 
+
+## 算出プロパティを使う
+
+先述のとおり、テンプレート内ではJavaScriptが書けるので便利です。
+
+```html{7-8}
+<div id="app-4">
+  <input
+    type="text"
+    v-model='message'
+    >
+  <p>あなたの入力したメッセージは {{ message }} です</p>
+  <p>あなたの入力したメッセージの文字数は {{ message.length }} です</p>
+  <p>あなたの入力したメッセージを逆さまに書くと {{ message.split('').reverse().join('') }} です</p>
+</div>
+```
+
+```js
+var app4 = new Vue({
+  el: '#app-4',
+  data: {
+    message: ''
+  },
+})
+```
+
+ですが、テンプレート内に多くのロジックを詰め込むと、コードが肥大化し、メンテナンスが難しくなります。
+
+複雑なロジックにはcomputedプロパティを使います。これは一般的なオブジェクト指向におけるgetter propertyに似ています。
+
+```html
+<div id="app-4">
+  <input
+    type="text"
+    v-model='message'
+    >
+  <p>あなたの入力したメッセージは {{ message }} です</p>
+  <p>あなたの入力したメッセージの文字数は {{ messageLength }} です</p>
+  <p>あなたの入力したメッセージを逆さまに書くと {{ reversedMessage } です</p>
+</div>
+```
+
+```js
+var app4 = new Vue({
+  el: '#app-4',
+  data: {
+    message: ''
+  },
+  computed() {
+    messageLength: function () {
+      // `this` は vm インスタンスを指します
+      return this.message.length;
+    },
+    reversedMessage: function () {
+      // `this` は vm インスタンスを指します
+      return this.message.split('').reverse().join('');
+    },
+})
+```
+
+computedプロパティは依存するdataプロパティの変化にともない、値がリアクティブに変化します。
+
+
 ## 条件分岐
 
 `v-if / v-show` ディレクティブを使うと簡単に表示制御ができます。
