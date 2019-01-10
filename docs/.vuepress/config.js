@@ -16,7 +16,8 @@ module.exports = {
     sidebar: [
       '/',
       ['/setup/', 'セットアップ'],
-      ['/hands-on/', 'ハンズオン']
+      ['/hands-on/', 'ハンズオン'],
+      ['/practice/', 'プラクティス']
     ],
     displayAllHeaders: true
   }
