@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first Vue app</title>
+    <style type="text/css">
+        #app {
+            display: flex;
+            width: 98vw;
+            height: 98vh;
+        }
+        .raw-input, .marked-input {
+            width: 99%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .raw-input {
+            border: none;
+            border-right: 1px solid #ccc;
+            resize: none;
+            outline: none;
+            font-size: 16px;
+            background-color: #f6f6f6;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <textarea class="raw-input" v-model="rawInput"></textarea>
+    <div class="marked-input" v-html="markedInput"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.6.0/marked.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      rawInput: '# Hello World!',
+    },
+    computed: {
+      markedInput: function() {
+        return marked(this.rawInput);
+      }
+    }
+  })
+</script>
+</body>
+
+</html>

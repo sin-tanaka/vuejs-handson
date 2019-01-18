@@ -277,7 +277,7 @@ var app5 = new Vue({
 
 ### 答えを見る
 
-[View on GitHub](https://github.com/sin-tanaka/vuejs-handson/docs/public/examples/reactiveCheckbox)
+[View on GitHub](https://github.com/sin-tanaka/vuejs-handson/tree/master/docs/.vuepress/public/examples/reactiveCheckbox)
 
 
 ## 算出プロパティを使う
