@@ -45,13 +45,26 @@ Vueインスタンスに渡された `data` プロパティはすべてがリア
 また、インスタンス内部では `this.propertyName` でアクセス可能です。 `this` はインスタンス内部のスコープを表します。
 Vueインスタンス内のdataの変化は、意識することなくDOM上に展開しているデータと連動して変化します。
 
-![01](./01.gif)
+### ためしてみる
+
+[reactive01](/examples/reactive01/index.html)
 
 ### リアクティブを体感する その2
 
 文字列の展開に加えて、以下のように要素の属性もリアクティブにすることができます。
 
 例として、 `title` 属性をリアクティブにしてみます。
+
+::: tip
+
+html要素は属性を持つことできます。属性は実際には表示されない追加情報といえます。
+
+また、すべての要素付与できる **グローバル属性** と **要素ごとに固有の属性** が存在します。
+
+例えば、 `class` や `id` 、 `title` はグローバル属性で、 `<a>` 要素の `href` や `<img>` 要素の `src` は固有の属性です。
+
+[title \| MDN](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/title)
+:::
 
 ```html
 <div id="app-2">
@@ -70,13 +83,17 @@ var app2 = new Vue({
 })
 ```
 
-`v-bind` 属性はDOMに対して、リアクティブな振る舞いを提供します。
-上記の例は、「この要素の `title` 属性を `Vue` インスタンスの `message` プロパティによって更新して保存する」ということになります。
+`v-bind` 属性はDOMの属性に対して、リアクティブな振る舞いを提供します。
+上記の例は、「 `span` 要素の `title` 属性を `Vue` インスタンスの `message` プロパティによって更新して保存する」ということになります。
 
 また、 `Vue.js` の提供する `v-` の接頭辞のついたプロパティを **ディレクティブ** といいます。
 
 ディレクティブの中身は常にJavaScriptとして評価されます。  
 例えばディレクティブに文字列を渡したいときは `v-bind:title="'anyString'"` のようにする必要があります。
+
+### ためしてみる
+
+[reactive02](/examples/reactive02/index.html)
 
 ::: tip
 
@@ -103,7 +120,7 @@ var app2 = new Vue({
 
 
 ```html
-<div id="app-2">
+<div id="app-3">
   <button v-on:click='popAlert'>
     アラートを出す
   </button>
@@ -111,8 +128,8 @@ var app2 = new Vue({
 ```
 
 ```js
-var app2 = new Vue({
-  el: '#app-2',
+var app3 = new Vue({
+  el: '#app-3',
   data: {
     alertMessage: 'ボタンが押されました'
   },
@@ -136,6 +153,11 @@ methodsに定義した関数は、上記の例のようにディレクティブ�
 
 また、dataプロパティと同様に、テンプレート構文やインスタンス内部から呼び出すことも可能です。
 
+### ためしてみる
+
+[listenEvent](/examples/listenEvent/index.html)
+
+
 ::: tip
 フロントエンド開発では、画面上でのユーザからの入力や変更をイベントして受け取り、それぞれのイベントに対し、動作を規定しておくことがしばしばあります。
 
@@ -151,7 +173,7 @@ e.g. ボタンをクリックすることでダイアログが開く等
 htmlの `<input>` 要素のvalue属性をリアクティブなふるまいにして、さらにinputイベントを購読しましょう。
 
 ```html
-<div id="app-3">
+<div id="app-4">
   <input
     type="text"
     v-bind:value="message"
@@ -162,8 +184,8 @@ htmlの `<input>` 要素のvalue属性をリアクティブなふるまいにし
 ```
 
 ```js
-var app3 = new Vue({
-  el: '#app-3',
+var app4 = new Vue({
+  el: '#app-4',
   data: {
     message: ''
   },
@@ -177,12 +199,17 @@ var app3 = new Vue({
 
 `<input>` が更新されるたびに `<p>` 要素内のmessageが変化するのが分かると思います。
 
-いままで、 Vueインスタンス→画面 の一方向にリアクティブでしたが、Vueインスタンス⇔画面 の両方でリアクティブになっていることが分かるかと思います。
+いままで、 `Vueインスタンス→画面` の一方向にリアクティブでしたが、 `Vueインスタンス⇔画面` の両方でリアクティブになっていることが分かるかと思います。
 
 これを **双方向バインディング** といいいます。
 
+### ためしてみる
+
+[reactive03](/examples/reactive03/index.html)
+
+
 ::: tip
-`v-on` ディレクティブで発火する関数には **暗黙的に** event変数が渡されることを覚えておきましょう。  
+updateMessage に渡されている `e` は event変数です。 `v-on` ディレクティブで発火する関数には **暗黙的に** event変数が渡されることを覚えておきましょう。
 これはJavaScriptの慣例なので、JavaScriptでイベントハンドリングをしたことがない人は直感的に理解しづらいかもしれません。
 
 また、イベントによって発火する関数は **コールバック関数** と呼ばれます。
@@ -248,13 +275,17 @@ var app5 = new Vue({
 })
 ```
 
+### 答えを見る
+
+[View on GitHub](https://github.com/sin-tanaka/vuejs-handson/docs/public/examples/reactiveCheckbox)
+
 
 ## 算出プロパティを使う
 
 先述のとおり、テンプレート内ではJavaScriptが書けるので便利です。
 
 ```html{7-8}
-<div id="app-4">
+<div id="app-6">
   <input
     type="text"
     v-model='message'
@@ -266,8 +297,8 @@ var app5 = new Vue({
 ```
 
 ```js
-var app4 = new Vue({
-  el: '#app-4',
+var app6 = new Vue({
+  el: '#app-6',
   data: {
     message: ''
   },
@@ -279,7 +310,7 @@ var app4 = new Vue({
 複雑なロジックにはcomputedプロパティを使います。これは一般的なオブジェクト指向におけるgetter propertyに似ています。
 
 ```html
-<div id="app-4">
+<div id="app-6">
   <input
     type="text"
     v-model='message'
@@ -291,47 +322,50 @@ var app4 = new Vue({
 ```
 
 ```js
-var app4 = new Vue({
-  el: '#app-4',
+var app6 = new Vue({
+  el: '#app-6',
   data: {
     message: ''
   },
-  computed() {
-    messageLength: function () {
+  computed: {
+    messageLength: function() {
       // `this` は vm インスタンスを指します
       return this.message.length;
     },
-    reversedMessage: function () {
-      // `this` は vm インスタンスを指します
+    reversedMessage: function() {
       return this.message.split('').reverse().join('');
     },
+  }
 })
 ```
 
 computedプロパティは依存するdataプロパティの変化にともない、値がリアクティブに変化します。
 
+### ためしてみる
+
+[computed](/examples/computed/index.html)
 
 ## 条件分岐
 
 `v-if / v-show` ディレクティブを使うと簡単に表示制御ができます。
 
 ```html
-<div id="app-5">
+<div id="app-7">
   <h1 v-if="isVisible">Visible</h1>
   <h1 v-else>NotVisible</h1>
 </div>
 ```
 
 ```html
-<div id="app-5">
+<div id="app-7">
   <h1 v-show="isVisible">Visible</h1>
   <h1 v-show="!isVisible">NotVisible</h1>
 </div>
 ```
 
 ```js
-var app5 = new Vue({
-  el: '#app-5',
+var app7 = new Vue({
+  el: '#app-7',
   data: {
     isVisible: true,
   },
@@ -339,6 +373,10 @@ var app5 = new Vue({
 ```
 
 コンソール上から `isVisible` の値を変えると、描画されるhtmlが変わることが確認できます。
+
+### ためしてみる
+
+[v-if | v-else | v-show](/examples/v-if/index.html)
 
 ::: tip
 v-if / v-showで実現できることは同じように見えますが、若干違いがあります。
@@ -357,7 +395,7 @@ Vueインスタンスに宣言した配列を描画するとき、 `v-for` デ�
 `v-for` ディレクティブは `item in items` の構文でループを指定する必要があり、他のディレクティブに比べやや特殊な構文になります。
 
 ```html
-<div id="app-6">
+<div id="app-8">
   <ul>
     <li v-for="member in members">
       {{ member.name }}
@@ -367,8 +405,8 @@ Vueインスタンスに宣言した配列を描画するとき、 `v-for` デ�
 ```
 
 ```js
-var app6 = new Vue({
-  el: '#app-6',
+var app8 = new Vue({
+  el: '#app-8',
   data: {
     members: [
       {name: 'ジョナサン・ジョースター'},
@@ -381,5 +419,12 @@ var app6 = new Vue({
   },
 })
 ```
+
+### ためしてみる
+
+[v-for](/examples/v-for/index.html)
+
+---
+
 
 以上が `Vue.js` の基本的な構文になります。
