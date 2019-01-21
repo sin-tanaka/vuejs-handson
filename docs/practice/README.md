@@ -85,19 +85,98 @@ var app = new Vue({
 
 JavaScript標準の非同期通信APIである、FetchAPIを使ってGitHubAPIと非同期な通信をしてみましょう。
 
+
+### Promise
+
+Fetch APIを説明する前にpromiseオブジェクトについて触れておきます。
+
+promiseは非同期処理の完了もしくは失敗を表すオブジェクト、またはそれらを操作する仕組みのことをいいます。
+
+```js
+function promiseReturnFunction() {
+  // promiseがreturnされる関数
+  // 非同期な処理 e.g. setTimeoutとか
+}
+
+promiseReturnFunction().then(function(result) {
+  // 成功時の処理
+}).catch(function(error) {
+  // 失敗時の処理
+})
+```
+
+promiseオブジェクトの `then / catch` メソッドそれぞれに成功 / 失敗時のfunctionを登録しておくことで、非同期関数実行の成否にかかわらず、
+
+- 実行順を保証する
+- 見通しのよいコードになる
+
+のようなメリットがあります。
+
+また、昨今においては、外部プラグインで非同期処理を行う関数のほとんどが `Promise` を使って書かれています。
+
+
 ### Fetch API
+
+Fetch APIはJavaScriptの標準モジュールで、Ajaxのようにブラウザから非同期通信を実行する関数です。
 
 * [Fetch 概説 \| MDN](https://developer.mozilla.org/ja/docs/Web/API/Fetch_API/Using_Fetch)
 
 ```js
-fetch('http://example.com/movies.json')
+fetch('http://example.com/movies.json') // URLへhttpリクエストを送信
   .then(function(response) {
-    return response.json();
+    console.log(response.status) // 200
+    return response.json(); // jsonを返す
   })
   .then(function(myJson) {
-    console.log(JSON.stringify(myJson));
+    console.log(JSON.stringify(myJson)); // console.logはjson型を受け取れないのでstringにキャストしている
   });
 ```
+
+基本的な使い方は 第1引数にfetchしたいリソースのURL、（必要であれば）第2引数にオプションを指定したオブジェクトを指定します。
+
+戻り値は前述したPromiseオブジェクトとなります。
+
+```ts
+fetch(input: URL, option: オプション): Promise<Response>;
+```
+
+### Vueインスタンスのライフサイクルフック
+
+Fetch APIのようにリソースを非同期で取得し、画面に表示するとき、どのタイミングでリソースを取得するのが望ましいでしょうか。
+
+多くの場合、ボタン押下のようなユーザからのアクションなしで、JavaScriptが読み込まれたタイミングでリソースを取得することになると思います。
+
+Vue.jsでは、Vueインスタンス初期化時の特定の段階で実行する処理を追加することができます。
+
+いくつかの **ライフサイクルフック** と呼ばれる関数を実行することでそれを実現できます。
+
+
+```js
+new Vue({
+  data: {
+    a: 1
+  },
+  created: function () {
+    console.log('a is: ' + this.a)
+  }
+})
+// => "a is: 1"
+```
+
+- [API | ライフサイクルフック — Vue\.js](https://jp.vuejs.org/v2/api/#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3-%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%83%95%E3%83%83%E3%82%AF)
+
+::: tip
+代表的なライフサイクルフックとその呼ばれるタイミングは以下です。
+- created ... Vueインスタンス作成時
+- mounted ... Vueインスタンスと、それに紐づくルートのDOM要素がレンダリングされたとき
+- updated ... dataが変更され、DOMが再描画されたとき
+- destroyed ... Vueインスタンスが破棄されたとき
+:::
+
+### VueインスタンスからGitHubAPIをFetchしてみる
+
+GitHubの公開APIを叩いて画面に表示してみましょう。
+
 
 ## 検索結果を動的に表示してみる
 
