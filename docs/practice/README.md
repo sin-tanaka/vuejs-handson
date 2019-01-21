@@ -140,6 +140,16 @@ fetch('http://example.com/movies.json') // URLへhttpリクエストを送信
 fetch(input: URL, option: オプション): Promise<Response>;
 ```
 
+::: warning
+Fetch APIの戻り値である `Response` 型はいくつかのプロパティとメソッドで構成されています。
+
+`body` や `status` , `header` など代表的なプロパティと、bodyの値をjsonやstringで返す `json()` 、`text()` 等のメソッドがあります。
+
+後者の `json()` 、 `text()` メソッドは便利ですが、Promiseオブジェクトを返すことに注意しましょう。
+
+- [Response \| MDN](https://developer.mozilla.org/ja/docs/Web/API/Response)
+:::
+
 ### Vueインスタンスのライフサイクルフック
 
 Fetch APIのようにリソースを非同期で取得し、画面に表示するとき、どのタイミングでリソースを取得するのが望ましいでしょうか。
@@ -175,9 +185,38 @@ new Vue({
 
 ### VueインスタンスからGitHubAPIをFetchしてみる
 
-GitHubの公開APIを叩いて画面に表示してみましょう。
+GitHubでは公開されているリポジトリの情報をAPIから取得することができます。
+
+Vue.jsのcommit記録をAPIから取得して、リストで表示してみましょう。
+
+::: tip
+- Vue.jsのGitHubリポジトリ: https://github.com/vuejs/vue
+  - masterブランチのcommit記録: https://github.com/vuejs/vue/commits/master
+  - 対応するAPIのURL: https://api.github.com/repos/vuejs/vue/commits?per_page=10&sha=master
+:::
+
+#### 仕様
+
+- Fetch APIを使ってmasterブランチのコミットログを一覧表示する
+  - `<ul> <li>` を使って一覧表示する
+- 画面に表示する情報
+  - コミットハッシュ
+    - `<a>` で表示し、commitのURLをリンクする
+  - コミットメッセージ
+  - コミッター
+  - コミットの日時
 
 
-## 検索結果を動的に表示してみる
+#### 完成形
 
-名前の一覧の検索結果を動的に変化させてみましょう。
+[fetch api sample](/practice/fetchApi/index.html)
+
+
+---
+
+ここで作成した例は、いずれも公式リファレンスのExampleに載っています。
+
+[Example — Vue\.js](https://jp.vuejs.org/v2/examples/)
+
+時間があれば他の例も参考にしてみてください。
+

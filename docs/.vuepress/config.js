@@ -22,5 +22,8 @@ module.exports = {
     editLinks: true,
     editLinkText: 'このページをGitHubで編集する',
     lastUpdated: '最終更新日',
-  }
+  },
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon.ico' }]
+  ]
 };
