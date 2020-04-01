@@ -395,7 +395,7 @@
     "jsprim": "^1.4.1",
     "keygrip": "^1.0.3",
     "killable": "^1.0.1",
-    "kind-of": "^3.2.2",
+    "kind-of": "^6.0.3",
     "koa": "^2.6.2",
     "koa-compose": "^3.2.1",
     "koa-connect": "^2.0.1",
