@@ -734,7 +734,7 @@
     "topo": "^2.0.2",
     "toposort": "^1.0.7",
     "tough-cookie": "^2.4.3",
-    "trim-newlines": "^2.0.0",
+    "trim-newlines": "^3.0.1",
     "trim-right": "^1.0.1",
     "tslib": "^1.9.3",
     "tty-browserify": "^0.0.0",
