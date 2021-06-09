@@ -490,7 +490,7 @@
     "normalize-package-data": "^2.4.0",
     "normalize-path": "^2.1.1",
     "normalize-range": "^0.1.2",
-    "normalize-url": "^1.9.1",
+    "normalize-url": "^4.5.1",
     "npm-bundled": "^1.0.5",
     "npm-packlist": "^1.2.0",
     "npm-run-path": "^2.0.2",
