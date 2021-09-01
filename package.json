@@ -710,7 +710,7 @@
     "svgo": "^0.7.2",
     "table": "^4.0.3",
     "tapable": "^1.1.1",
-    "tar": "^4.4.8",
+    "tar": "^4.4.18",
     "term-size": "^1.2.0",
     "terser": "^3.14.1",
     "terser-webpack-plugin": "^1.2.1",
