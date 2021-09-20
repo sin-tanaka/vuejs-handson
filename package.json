@@ -586,7 +586,7 @@
     "pretty-bytes": "^4.0.2",
     "pretty-error": "^2.1.1",
     "pretty-time": "^1.1.0",
-    "prismjs": "^1.15.0",
+    "prismjs": "^1.25.0",
     "private": "^0.1.8",
     "process": "^0.11.10",
     "process-nextick-args": "^2.0.0",
