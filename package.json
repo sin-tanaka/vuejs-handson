@@ -436,7 +436,7 @@
     "map-cache": "^0.2.2",
     "map-obj": "^1.0.1",
     "map-visit": "^1.0.0",
-    "markdown-it": "^8.4.2",
+    "markdown-it": "^12.3.2",
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-container": "^2.0.0",
     "markdown-it-emoji": "^1.4.0",
