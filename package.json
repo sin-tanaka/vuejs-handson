@@ -50,7 +50,7 @@
     "assert": "^1.4.1",
     "assert-plus": "^1.0.0",
     "assign-symbols": "^1.0.0",
-    "async": "^1.5.2",
+    "async": "^3.2.2",
     "async-each": "^1.0.1",
     "async-limiter": "^1.0.0",
     "asynckit": "^0.4.0",
