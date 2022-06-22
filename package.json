@@ -288,7 +288,7 @@
     "globals": "^11.9.0",
     "globby": "^8.0.1",
     "good-listener": "^1.2.2",
-    "got": "^6.7.1",
+    "got": "^11.8.5",
     "graceful-fs": "^4.1.15",
     "gray-matter": "^4.0.1",
     "har-schema": "^2.0.0",
