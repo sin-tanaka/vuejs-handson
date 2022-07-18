@@ -715,7 +715,7 @@
     "terser": "^3.14.1",
     "terser-webpack-plugin": "^1.2.1",
     "text-table": "^0.2.0",
-    "thenify": "^3.3.0",
+    "thenify": "^3.3.1",
     "thenify-all": "^1.6.0",
     "through": "^2.3.8",
     "through2": "^2.0.5",
