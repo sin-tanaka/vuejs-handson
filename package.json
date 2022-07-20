@@ -712,7 +712,7 @@
     "tapable": "^1.1.1",
     "tar": "^4.4.8",
     "term-size": "^1.2.0",
-    "terser": "^3.14.1",
+    "terser": "^4.8.1",
     "terser-webpack-plugin": "^1.2.1",
     "text-table": "^0.2.0",
     "thenify": "^3.3.0",
