@@ -184,7 +184,7 @@
     "debug": "^2.6.9",
     "decamelize": "^1.2.0",
     "decamelize-keys": "^1.1.0",
-    "decode-uri-component": "^0.2.0",
+    "decode-uri-component": "^0.2.1",
     "deep-equal": "^1.0.1",
     "deep-extend": "^0.6.0",
     "deepmerge": "^1.5.2",
